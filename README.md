@@ -23,7 +23,7 @@ Temperature-> MAE: 609.2843635260077, R2: 0.5734372136204415
 Tint-> MAE: 6.260189859258555, R2: 0.41510046177429316
 
 
-How to run the code so far:
+## How to run the code:
 
 set the paths to the image folder as well as the sliders csv in constants.py
 
