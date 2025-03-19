@@ -31,6 +31,7 @@ after that, run the following scripts in this order
 
 '''
 python3 get_embeddings.py
+
 python3 export_table.py
 
 python3 train.py
