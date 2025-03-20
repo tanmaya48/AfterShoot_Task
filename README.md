@@ -2,25 +2,19 @@
 
 Current results on the 5 Profiles:
 
-Profile_1
-Temperature-> MAE: 594.9265393447841, R2: 0.5947148701709433
-Tint-> MAE: 6.391307233147204, R2: 0.39852678779284423
+| Profile  | Samples | Parameter | MAE           | R2            |
+|----------|---------|-----------|---------------|---------------|
+| Profile1 | 811     | Temperature | 439.1647      | 0.77996       |
+|          |         | Tint       | 6.1072        | 0.47345       |
+| Profile2 | 750     | Temperature | 434.448       | 0.75240       |
+|          |         | Tint       | 7.2351        | 0.39569       |
+| Profile3 | 834     | Temperature | 453.3231      | 0.58416       |
+|          |         | Tint       | 6.3271        | 0.50174       |
+| Profile4 | 1544    | Temperature | 152.9643      | 0.70583       |
+|          |         | Tint       | 1.6978        | 0.83232       |
+| Profile5 | 811     | Temperature | 434.2257      | 0.79590       |
+|          |         | Tint       | 6.1623        | 0.47334       |
 
-Profile_2
-Temperature-> MAE: 543.6956298620128, R2: 0.5865683492396532
-Tint-> MAE: 7.111967769622803, R2: 0.36112784683579624
-
-Profile_3
-Temperature-> MAE: 630.4872070201122, R2: 0.3266164114253536
-Tint-> MAE: 6.669532728852699, R2: 0.34049280182119224
-
-Profile_4
-Temperature-> MAE: 280.6831664443951, R2: 0.6057219909395524
-Tint-> MAE: 3.170452511488156, R2: 0.6894635892239634
-
-Profile_5
-Temperature-> MAE: 609.2843635260077, R2: 0.5734372136204415
-Tint-> MAE: 6.260189859258555, R2: 0.41510046177429316
 
 
 ## How to run the code:
