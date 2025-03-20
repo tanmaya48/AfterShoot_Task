@@ -1,3 +1,4 @@
+import numpy as np
 import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
@@ -35,7 +36,7 @@ df['camera_model'] = df['camera_model'].apply(lambda x: x if category_counts[x] 
 df = pd.get_dummies(df, columns=['camera_model'])
 
 
-df['Temperature_regr'] = (df['Temperature']/df['Temperature'].mean())
+df['Temperature_regr'] = (df['Temperature']/5000)
 df['Tint_regr'] = scaler.fit_transform(df[['Tint']])
 
 df[df.select_dtypes(include='bool').columns] = df.select_dtypes(include='bool').astype(int)

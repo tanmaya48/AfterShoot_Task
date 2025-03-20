@@ -61,7 +61,7 @@ if __name__ == '__main__':
     train_loader = torch.utils.data.DataLoader(train_dataset,batch_size=128,shuffle=True)
     test_loader = torch.utils.data.DataLoader(test_dataset,batch_size=128,shuffle=True)
 
-    model = StyleModel(2048,len(train_dataset.feature_columns))
+    model = StyleModel(768,len(train_dataset.feature_columns))
     model.to(device)
 
     optimizer = optim.AdamW(model.parameters(), lr=0.001)
@@ -70,7 +70,7 @@ if __name__ == '__main__':
     #
     best_val_loss =float('inf') 
     best_epoch = 0
-    patience = 30
+    patience = 100
     n_epochs = 1000
     for epoch in range(n_epochs):
         if epoch - best_epoch> patience:

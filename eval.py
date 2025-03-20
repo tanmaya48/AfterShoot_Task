@@ -33,9 +33,9 @@ scaler.fit(df[['Tint']])
 
 
 def post_process(temp,tint):
-    temp = temp * df['Temperature'].mean()
+    temp = temp * 5000
     tint = scaler.inverse_transform([[tint]])[0]
-    return temp,tint[0]
+    return temp,tint
 
 pred_temps = []
 pred_tints = []
