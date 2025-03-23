@@ -15,7 +15,7 @@ model.eval()
 import pandas as pd
 import pickle
 
-embeddings_path = 'profile_embeddings.pkl'
+embeddings_path = 'val_embeddings.pkl'
 with open(embeddings_path,'rb') as file:
     embeddings_dict = pickle.load(file)
 
@@ -35,6 +35,7 @@ scaler.fit(df[['Tint']])
 def post_process(temp,tint):
     temp = temp * 5000
     tint = scaler.inverse_transform([[tint]])[0]
+    #temp = (temp * 48000)+2000
     return temp,tint
 
 pred_temps = []

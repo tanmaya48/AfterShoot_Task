@@ -51,17 +51,21 @@ def train(model,train_dataloader,val_dataloader,optimizer,l1_loss):
     return train_loss,val_loss
 
 if __name__ == '__main__':
-    embeddings_path = 'profile_embeddings.pkl'
-    with open(embeddings_path,'rb') as file:
+    train_embeddings_path = 'train_embeddings.pkl'
+    with open(train_embeddings_path,'rb') as file:
         embeddings_dict = pickle.load(file)
+    train_dataset = EditStyleDataset(pd.read_csv('profile_train.csv'),embeddings_dict,True)
 
-    train_dataset = EditStyleDataset(pd.read_csv('profile_train.csv'),embeddings_dict)
+    val_embeddings_path = 'val_embeddings.pkl'
+    with open(val_embeddings_path,'rb') as file:
+        embeddings_dict = pickle.load(file)
     test_dataset = EditStyleDataset(pd.read_csv('profile_test.csv'),embeddings_dict)
 
     train_loader = torch.utils.data.DataLoader(train_dataset,batch_size=128,shuffle=True)
     test_loader = torch.utils.data.DataLoader(test_dataset,batch_size=128,shuffle=True)
 
-    model = StyleModel(768,len(train_dataset.feature_columns))
+    model = StyleModel(1280,len(train_dataset.feature_columns))
+    #model = StyleModel(768,len(train_dataset.feature_columns))
     model.to(device)
 
     optimizer = optim.AdamW(model.parameters(), lr=0.001)

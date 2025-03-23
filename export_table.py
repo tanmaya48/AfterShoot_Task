@@ -19,6 +19,9 @@ df['aperture'] = df['aperture'].fillna(df['aperture'].median())
 df['focalLength'] = df['focalLength'].fillna(df['focalLength'].median())
 
 
+df.to_csv('profile.csv')
+
+
 numerical_columns = ['currTemp', 'currTint', 'aperture', 'flashFired',
        'focalLength', 'isoSpeedRating', 'shutterSpeed', 'intensity', 'ev']
 
@@ -36,7 +39,7 @@ df['camera_model'] = df['camera_model'].apply(lambda x: x if category_counts[x] 
 df = pd.get_dummies(df, columns=['camera_model'])
 
 
-df['Temperature_regr'] = (df['Temperature']/5000)
+df['Temperature_regr'] = (df['Temperature'])/5000
 df['Tint_regr'] = scaler.fit_transform(df[['Tint']])
 
 df[df.select_dtypes(include='bool').columns] = df.select_dtypes(include='bool').astype(int)
