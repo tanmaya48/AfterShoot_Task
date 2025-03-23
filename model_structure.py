@@ -11,9 +11,9 @@ class StyleModel(nn.Module):
         self.emb_processor3 = nn.Linear(128,64)
         self.batchNorm_emb = nn.BatchNorm1d(64)
         #
-        self.table_processor1 = nn.Linear(table_input_size,32)
-        self.table_processor2 = nn.Linear(32,32)
-        self.table_processor3 = nn.Linear(32,32)
+        self.table_processor1 = nn.Linear(table_input_size,128)
+        self.table_processor2 = nn.Linear(128,64)
+        self.table_processor3 = nn.Linear(64,32)
         self.batchNorm_table = nn.BatchNorm1d(32)
         #
         self.combined_processor1 = nn.Linear(64+32,64)
@@ -22,6 +22,7 @@ class StyleModel(nn.Module):
         self.dropout = nn.Dropout(p=0.2)
         self.silu = nn.SiLU()
         self.relu = nn.ReLU()
+        self.sigmoid = nn.Sigmoid()
 
     def forward(self,embedding,table_input):
         emb_out = self.silu(self.emb_processor1(embedding))
