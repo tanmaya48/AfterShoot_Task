@@ -2,18 +2,18 @@
 
 Current results on the 5 Profiles:
 
-| Profile  | Samples | Parameter | MAE           | R2            |
-|----------|---------|-----------|---------------|---------------|
-| Profile1 | 811     | Temperature | 439.1647      | 0.77996       |
-|          |         | Tint       | 6.1072        | 0.47345       |
-| Profile2 | 750     | Temperature | 434.448       | 0.75240       |
-|          |         | Tint       | 7.2351        | 0.39569       |
-| Profile3 | 834     | Temperature | 453.3231      | 0.58416       |
-|          |         | Tint       | 6.3271        | 0.50174       |
-| Profile4 | 1544    | Temperature | 152.9643      | 0.70583       |
-|          |         | Tint       | 1.6978        | 0.83232       |
-| Profile5 | 811     | Temperature | 434.2257      | 0.79590       |
-|          |         | Tint       | 6.1623        | 0.47334       |
+| Profile  | Samples | Parameter   | MAE        | R2        |
+|----------|---------|-------------|------------|-----------|
+| Profile1 | 811     | Temperature | 401        | 0.8314    |
+|          |         | Tint        | 5.5004     | 0.5806    |
+| Profile2 | 750     | Temperature | 372        | 0.7897    |
+|          |         | Tint        | 6.3857     | 0.4729    |
+| Profile3 | 834     | Temperature | 427        | 0.6668    |
+|          |         | Tint        | 5.8797     | 0.5857    |
+| Profile4 | 1544    | Temperature | 141        | 0.6581    |
+|          |         | Tint        | 1.6978     | 0.83232   |
+| Profile5 | 811     | Temperature | 408        | 0.8223    |
+|          |         | Tint        | 5.4756     | 0.5824    |
 
 
 
