@@ -5,6 +5,19 @@ import torch
 import pickle
 import torchvision.models as models
 from tqdm import tqdm
+import pandas as pd
+
+import random 
+
+def randomize_image(image):
+    im_h,im_w,_ = image.shape
+    w = random.uniform(0.75,1)
+    h = random.uniform(0.75,1)
+    x1 = int(random.uniform(0,im_w*(1-w)))
+    y1 = int(random.uniform(0,im_h*(1-h)))
+    x2 = x1 + int(im_w*w)
+    y2 = y1 + int(im_h*h)
+    return image[y1:y2,x1:x2,:]
 
 
 def preprocess(image):
@@ -35,26 +48,48 @@ def get_embeddings(model, x):
 
 
 from constants import profile_images_dir,sliders_table_path
+
+def main(model,device,image_dir,train_images,val_images):
+    pickle_filename = "train_embeddings.pkl"
+    train_embeddings_dict = {}
+    for image_name in tqdm(train_images):
+        image_path = os.path.join(image_dir, f'{image_name}.tif')
+        image = cv2.imread(image_path)
+        images = [randomize_image(image) for i in range(7)] + [image]
+        embeddings = []
+        for image_sample in images:
+            image_tensor = preprocess(image_sample)
+            output = get_embeddings(model,image_tensor.to(device))
+            embedding = output.cpu().numpy().flatten()
+            embeddings.append(embedding)
+        train_embeddings_dict[image_name] = embeddings
+    with open(pickle_filename, 'wb') as f:
+        pickle.dump(train_embeddings_dict, f)
+    #
+    #
+    pickle_filename = "val_embeddings.pkl"
+    val_embeddings_dict = {}
+    for image_name in tqdm(val_images):
+        image_path = os.path.join(image_dir, f'{image_name}.tif')
+        image = cv2.imread(image_path)
+        image_tensor = preprocess(image)
+        output = get_embeddings(model,image_tensor.to(device))
+        embedding = output.cpu().numpy().flatten()
+        val_embeddings_dict[image_name] = [embedding]
+    with open(pickle_filename, 'wb') as f:
+        pickle.dump(val_embeddings_dict, f)
+
+
+
+
 if __name__ == "__main__":
     device = 0
-    #model = torch.nn.Sequential(*list(models.resnet50().children())[:-1])
-    model = models.vit_b_16(pretrained=True)
+    model = models.vit_h_14(weights='ViT_H_14_Weights.IMAGENET1K_SWAG_LINEAR_V1')
     model = model.to(device)
     model.eval()
     image_dir =profile_images_dir 
-    pickle_filename = "profile_embeddings.pkl"
-    embeddings_dict = {}
-    for image_name in tqdm(os.listdir(image_dir)):
-        image_path = os.path.join(image_dir, image_name)
-        image = cv2.imread(image_path)
-        image = preprocess(image)
-        with torch.no_grad():
-            #output = model(image.to(device))
-            #output = model.forward_features(image.to(device))
-            output = get_embeddings(model,image.to(device))
-            embedding = output.cpu().numpy().flatten()
-        image_id = os.path.splitext(image_name)[0]
-        embeddings_dict[image_id] = embedding
-    with open(pickle_filename, 'wb') as f:
-        pickle.dump(embeddings_dict, f)
-
+    train_images = pd.read_csv('profile_train.csv')['image_id'].tolist()
+    val_images = pd.read_csv('profile_test.csv')['image_id'].tolist()
+    with torch.no_grad():
+        main(model,device,image_dir,train_images,val_images)
+    
